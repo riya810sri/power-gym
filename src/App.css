@@ -1,0 +1,92 @@
+/* src/styles/App.css */
+
+/* @tailwind directives removed because Tailwind CSS is not configured in the build process */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #0e0e0e; /* Dark theme background */
+  color: #ffffff; /* Default text color */
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+p {
+  color: #c5c5c5;
+}
+
+button {
+  transition: all 0.3s ease-in-out;
+  border-radius: 0.5rem;
+}
+
+.navbar {
+  background-color: #1a1a1a;
+  border-bottom: 1px solid #333;
+}
+
+.hero-section {
+  background: linear-gradient(90deg, #0f0f0f 0%, #1a1a1a 100%);
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 2.75rem;
+  background: linear-gradient(90deg, #ffffff, #e600ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  max-width: 640px;
+  margin: 0 auto;
+  color: #aaaaaa;
+}
+
+.cta-button {
+  background: linear-gradient(90deg, #6b00b6, #e600ff);
+  color: #fff;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section-dark {
+  background-color: #121212;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+}
+
+.feature-card {
+  background-color: #1e1e1e;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.footer {
+  background-color: #1a1a1a;
+  color: #888;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+}

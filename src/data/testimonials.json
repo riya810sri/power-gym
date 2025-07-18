@@ -1,0 +1,38 @@
+[
+  { 
+    "id": 1, 
+    "comment": "I've tried many online platforms, but Vulnhut's comprehensive curriculum and expert instructors stand out.", 
+    "name": "Aksha Chudasama", 
+    "role": "Bug Bounty Hunter"
+  },
+  { 
+    "id": 2, 
+    "comment": "The hands-on labs and detailed course significantly boosted my confidence and skills.", 
+    "name": "Sahil Kumar", 
+    "role": "Penetration Tester"
+  },
+  { 
+    "id": 3, 
+    "comment": "This platform excels in cybersecurity with innovative courses and hands-on labs for immersive learning.", 
+    "name": "Manthan Mahale", 
+    "role": "Bug Bounty Hunter"
+  },
+  { 
+    "id": 4, 
+    "comment": "I found Vulnhut's introductory course informative and easy to learn.", 
+    "name": "Anirudha Dak", 
+    "role": "DevOps Engineer"
+  },
+  { 
+    "id": 5, 
+    "comment": "I gained practical knowledge that directly applied to my professional growth in cybersecurity.", 
+    "name": "Rohan Hotkar", 
+    "role": "Bug Bounty Hunter"
+  },
+  { 
+    "id": 6, 
+    "comment": "Instructor Amit's expertise in IDOR and privilege escalation is exceptional. I highly recommend his course!", 
+    "name": "Hemant Kashyap", 
+    "role": "Security Analyst"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  { 
+    "id": 1, 
+    "title": "Web Penetration Testing", 
+    "description": "Master web application security testing from OWASP top 10 to advanced exploitation techniques.",
+    "icon": "🌐",
+    "level": "Intermediate",
+    "duration": "6 weeks"
+  },
+  { 
+    "id": 2, 
+    "title": "Network Security & Defense", 
+    "description": "Learn network attack vectors, defense strategies, and security architecture design.",
+    "icon": "🔒",
+    "level": "Advanced",
+    "duration": "8 weeks"
+  },
+  { 
+    "id": 3, 
+    "title": "Malware Analysis & Reverse Engineering", 
+    "description": "Dive deep into malware behavior analysis and reverse engineering techniques.",
+    "icon": "🦠",
+    "level": "Expert",
+    "duration": "10 weeks"
+  },
+  { 
+    "id": 4, 
+    "title": "Ethical Hacking Fundamentals", 
+    "description": "Start your cybersecurity journey with ethical hacking principles and methodologies.",
+    "icon": "🎯",
+    "level": "Beginner",
+    "duration": "4 weeks"
+  },
+  { 
+    "id": 5, 
+    "title": "Cloud Security", 
+    "description": "Secure cloud environments across AWS, Azure, and Google Cloud platforms.",
+    "icon": "☁️",
+    "level": "Intermediate",
+    "duration": "5 weeks"
+  },
+  { 
+    "id": 6, 
+    "title": "Digital Forensics", 
+    "description": "Learn to investigate cyber incidents and recover digital evidence.",
+    "icon": "🔍",
+    "level": "Advanced",
+    "duration": "7 weeks"
+  }
+]

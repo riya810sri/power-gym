@@ -1,0 +1,38 @@
+[
+  { 
+    "id": 1, 
+    "title": "Comprehensive Curriculum", 
+    "description": "Our courses cover a wide range of cybersecurity topics, from basics to advanced techniques.",
+    "icon": "📚"
+  },
+  { 
+    "id": 2, 
+    "title": "Expert-Led Live Training", 
+    "description": "Learn from expert instructors through live training and interactive sessions, and gain practical, real-world skills.",
+    "icon": "👨‍🏫"
+  },
+  { 
+    "id": 3, 
+    "title": "Industry-Recognized Certifications", 
+    "description": "Gain certifications that are valued and recognized in the cybersecurity industry.",
+    "icon": "�"
+  },
+  { 
+    "id": 4, 
+    "title": "Interactive Learning", 
+    "description": "Engage with hands-on labs, quizzes, and real-world scenarios to reinforce your learning.",
+    "icon": "🎯"
+  },
+  { 
+    "id": 5, 
+    "title": "Comprehensive Resources", 
+    "description": "Access a wealth of supplementary materials, including e-books, cheat sheets, and practice exams.",
+    "icon": "📖"
+  },
+  { 
+    "id": 6, 
+    "title": "Career Support", 
+    "description": "Get guidance on career paths, job opportunities, and interview preparation in cybersecurity.",
+    "icon": "�"
+  }
+]
