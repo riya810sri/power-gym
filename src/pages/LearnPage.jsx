@@ -147,10 +147,7 @@ export default function Learn() {
       {/* Navigation Bar */}
       <nav className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">V</span>
-          </div>
-          <span className="text-xl font-bold text-white">Vulnhut</span>
+          <span className="text-xl font-bold text-white">Durbhasi Gurukulam</span>
         </div>
         <div className="hidden md:flex items-center space-x-8">
           <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Home</Link>

@@ -4,7 +4,7 @@ export function FeaturesSection() {
   return (
     <section id="features" className="section-dark py-20 px-4 max-w-7xl mx-auto">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Why Choose Vulnhut?</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Why Choose Durbhasi Gurukulam?</h2>
         <p className="text-lg text-gray-400 max-w-2xl mx-auto">
           Explore why we are the top choice in cybersecurity training.
         </p>

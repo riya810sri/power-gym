@@ -17,13 +17,13 @@ export function HeroSection() {
       
       {/* Introducing badge */}
       <div className="mb-8 inline-flex items-center px-4 py-2 rounded-full border border-yellow-500 bg-yellow-500/10">
-        <span className="text-yellow-400 text-sm font-medium">✨ Introducing Vulnhut</span>
+        <span className="text-yellow-400 text-sm font-medium">✨ Introducing Durbhasi Gurukulam</span>
       </div>
 
       {/* Main heading */}
       <h1 className="hero-title text-5xl md:text-7xl font-bold text-center mb-6 leading-tight">
         Master Cybersecurity<br />
-        with <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Vulnhut</span>
+        with <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Durbhasi Gurukulam</span>
       </h1>
 
       {/* Subtitle */}

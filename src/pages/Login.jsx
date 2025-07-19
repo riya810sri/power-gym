@@ -18,7 +18,7 @@ export default function Login() {
 
     try {
       // Admin login shortcut (bypass API)
-      if (email === 'admin@vulnhut.com' && password === 'admin123') {
+      if (email === 'admin@Durbhasi Gurukulam.com' && password === 'admin123') {
         localStorage.setItem('isAdmin', 'true');
         localStorage.setItem('token', 'admin-token');
         window.location.href = 'http://localhost:5173/admin';

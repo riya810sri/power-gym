@@ -8,7 +8,7 @@ export function TestimonialsSection() {
       <div className="text-center mb-16">
         <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Success Stories from Our Learners</h2>
         <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-          See How Vulnhut is Shaping the Future of Cybersecurity Career
+          See How Durbhasi Gurukulam is Shaping the Future of Cybersecurity Career
         </p>
       </div>
       
