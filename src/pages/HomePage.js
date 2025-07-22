@@ -113,7 +113,7 @@ export default function App() {
         <div className="hidden md:flex items-center space-x-8">
           <a href="#features" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Features</a>
           <Link to="/courses" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Courses</Link>
-          <a href="#reviews" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Reviews</a>
+          // <a href="#reviews" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Reviews</a>
           <a href="#contact" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Contact</a>
           
           {/* Conditional rendering based on authentication state */}
