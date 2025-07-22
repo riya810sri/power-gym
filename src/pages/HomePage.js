@@ -118,7 +118,7 @@ export default function App() {
           
           {/* Conditional rendering based on authentication state */}
           {isAuthenticated ? (
-            <div className="relative group">
+            <div   class="course-card fade-in" className="relative group">
               <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium flex items-center space-x-2">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -129,7 +129,7 @@ export default function App() {
                 </svg>
               </button>
               {/* Dropdown menu */}
-              <div className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-lg border border-zinc-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div   class="course-card fade-in" className="absolute right-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-lg border border-zinc-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <div className="py-2">
                   <button 
                     onClick={handleLogout}
@@ -153,7 +153,7 @@ export default function App() {
         </div>
 
         {/* Mobile menu button */}
-        <div className="md:hidden">
+        <div  class="course-card fade-in" className="md:hidden">
           <button className="text-white">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -163,7 +163,7 @@ export default function App() {
       </nav>
 
       {/* Add padding to account for fixed navbar */}
-      <div className="pt-16"></div>
+      <div  class="course-card fade-in"  className="pt-16"></div>
 
       <HeroSection />
       <FeaturesSection />
