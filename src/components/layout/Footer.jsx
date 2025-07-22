@@ -11,7 +11,7 @@ export function Footer() {
 
   return (
     <footer id="contact" className="footer bg-black">
-      {/* Call to Action Section */}
+{/*       {/* Call to Action Section */}
       <div className="py-20 px-4 text-center border-b border-gray-800">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -32,7 +32,7 @@ export function Footer() {
             <a href="https://durbhasigurukulam.com/other/t&c.html" className="text-purple-400 hover:text-purple-300">Terms & Conditions</a>
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* Footer Content */}
       <div className="max-w-6xl mx-auto px-4 py-12">
