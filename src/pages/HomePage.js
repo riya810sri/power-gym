@@ -142,12 +142,12 @@ export default function App() {
             </div>
           ) : (
             <>
-              <Link to="/login">
-                <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 text-sm font-medium">Login</button>
-              </Link>
-              <Link to="/signup">
-                <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium ml-2">Sign Up</button>
-              </Link>
+              // <Link to="/login">
+              //   <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 text-sm font-medium">Login</button>
+              // </Link>
+              // <Link to="/signup">
+              //   <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium ml-2">Sign Up</button>
+              // </Link>
             </>
           )}
         </div>
