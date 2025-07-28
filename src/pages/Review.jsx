@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Footer } from '../components/layout/Footer';
 
 const initialReviews = [
@@ -33,14 +33,47 @@ export default function Review() {
       ...formData,
       rating: parseInt(formData.rating),
     };
-    setReviews([newReview, ...reviews]);
-    setFormData({ name: '', rating: '', comment: '' });
+    setReviews([newReview, ...reviews]); // New review on top
+    setFormData({ name: '', rating: '', comment: '' }); // Clear form
   };
 
   return (
     <div className="min-h-screen bg-black text-white px-4 pb-10">
-      {/* ⬇ Reduced from pt-28 to pt-16 */}
-      <div className="pt-16 max-w-3xl mx-auto">
+      {/* ✅ Navbar with animation */}
+      <motion.nav
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80"
+      >
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-sm">V</span>
+          </div>
+          <span className="text-xl font-bold text-white">Vulnhut</span>
+        </div>
+        <div className="hidden md:flex items-center space-x-8">
+          <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Home</Link>
+          <Link to="/courses" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Courses</Link>
+          <Link to="/reviews" className="text-purple-400 hover:text-white transition-colors text-sm font-medium">Reviews</Link>
+          <Link to="/login">
+            <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 text-sm font-medium">Login</button>
+          </Link>
+          <Link to="/signup">
+            <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium ml-2">Sign Up</button>
+          </Link>
+        </div>
+        <div className="md:hidden">
+          <button className="text-white">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </motion.nav>
+
+      {/* Content below navbar */}
+      <div className="pt-24 max-w-3xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,6 +83,7 @@ export default function Review() {
           Course Reviews
         </motion.h2>
 
+        {/* Review Form */}
         <motion.form
           onSubmit={handleSubmit}
           className="bg-zinc-900 p-6 rounded-xl border border-zinc-700 mb-10"
@@ -101,6 +135,7 @@ export default function Review() {
           </button>
         </motion.form>
 
+        {/* Display Reviews */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -128,6 +163,7 @@ export default function Review() {
         </motion.div>
       </div>
 
+      {/* Footer Animation */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
