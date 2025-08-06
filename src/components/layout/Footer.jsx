@@ -29,7 +29,7 @@ export function Footer() {
 
           <p className="text-sm text-gray-500 mt-4">
             By signing up, you agree to our{" "}
-            <a href="https://durbhasigurukulam.com/other/t&c.html" className="text-purple-400 hover:text-purple-300">Terms & Conditions</a>
+            <a href="https://durbhasigurukulam.com/terms-of-service" className="text-purple-400 hover:text-purple-300">Terms & Conditions</a>
           </p>
         </div>
       </div>
@@ -41,10 +41,10 @@ export function Footer() {
           <div>
             <h3 className="text-white font-bold mb-4">Useful Links</h3>
             <ul className="space-y-2">
-              <li><a href="https://durbhasigurukulam.com" className="text-gray-400 hover:text-white transition-colors text-sm">About</a></li>
-              <li><a href="https://durbhasigurukulam.com/other/t&c.html" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a></li>
-              <li><a href="https://durbhasigurukulam.com/other/refund.html" className="text-gray-400 hover:text-white transition-colors text-sm">Refund</a></li>
-              <li><a href="https://durbhasigurukulam.com/contact.html" className="text-gray-400 hover:text-white transition-colors text-sm">Contact Us</a></li>
+              <li><a href="https://durbhasigurukulam.com/about" className="text-gray-400 hover:text-white transition-colors text-sm">About</a></li>
+              <li><a href="https://durbhasigurukulam.com/terms-of-service" className="text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a></li>
+              <li><a href="https://durbhasigurukulam.com/refund-policy" className="text-gray-400 hover:text-white transition-colors text-sm">Refund</a></li>
+              <li><a href="https://durbhasigurukulam.com/contact" className="text-gray-400 hover:text-white transition-colors text-sm">Contact Us</a></li>
             </ul>
           </div>
           
