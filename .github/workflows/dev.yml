@@ -40,8 +40,8 @@ jobs:
           CI: false  # Prevent warnings from being treated as errors
         run: npm run build
 
-      - name: copy htaccess
-        run:  cp .htaccess ./build/
+      # - name: copy htaccess
+      #   run:  cp .htaccess ./build/
 
       - name: Clean up and Deploy using SFTP
         env:
