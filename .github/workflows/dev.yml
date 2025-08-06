@@ -20,6 +20,9 @@ jobs:
 
       - name: Upgrade npm to 11.5.2
         run: npm install -g npm@11.5.2
+
+      - name: Downgarde
+        run: npm install react-router-dom@^6.8.0
       # - name: Install Yarn
       #   run: npm install -g yarn
 
