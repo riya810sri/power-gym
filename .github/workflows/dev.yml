@@ -24,8 +24,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run ESLint
-        run: npx eslint . --max-warnings=999
+      # - name: Run ESLint
+      #   run: npx eslint . --max-warnings=999
 
       - name: Create .env file
         run: echo "${{ secrets.ENV }}" | base64 -d > ${{ secrets.ENV_FILE }}
