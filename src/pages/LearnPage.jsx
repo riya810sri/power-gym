@@ -292,7 +292,7 @@ export default function Learn() {
                 >
                   Enroll Now
                 </button>
-                
+                <p className="text-sm text-gray-400">30-day money-back guarantee</p>
               </div>
 
               <div className="space-y-4">
@@ -312,7 +312,14 @@ export default function Learn() {
                   <span className="text-gray-400">Category:</span>
                   <span className="text-purple-400">{course.category}</span>
                 </div>
-                
+                <div className="flex justify-between items-center py-2 border-b border-zinc-700">
+                  <span className="text-gray-400">Students:</span>
+                  <span className="text-white">{course.enrolledStudents || 0}</span>
+                </div>
+                <div className="flex justify-between items-center py-2">
+                  <span className="text-gray-400">Rating:</span>
+                  <span className="text-yellow-400">{course.rating || 'No ratings yet'}</span>
+                </div>
               </div>
 
               <div className="mt-6 pt-6 border-t border-zinc-700">

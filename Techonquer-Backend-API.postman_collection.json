@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "techonquer-backend-api",
-		"name": "Techonquer Backend API",
-		"description": "Complete API collection for Techonquer Backend with session-based authentication, testimonials, and courses management.",
+		"name": "Durbhasi Gurukulam Backend API",
+		"description": "Complete API collection for Durbhasi Gurukulam Backend with session-based authentication, testimonials, and courses management.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
