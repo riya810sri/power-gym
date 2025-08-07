@@ -7,7 +7,7 @@ export function HeroSection() {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/signup'); // or '/login' or wherever you want to go
+    navigate('/courses'); // or '/login' or wherever you want to go
   };
   return (
     <section className="hero-section min-h-screen flex flex-col justify-center items-center px-4 relative -mt-16 pt-16">

@@ -6,7 +6,7 @@ export function Footer() {
   const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate('/signup');
+    navigate('/courses');
   };
 
   return (
