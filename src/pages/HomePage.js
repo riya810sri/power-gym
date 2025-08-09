@@ -55,7 +55,7 @@ export default function App() {
           <Link to="/courses" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Courses</Link>
          {/* <Link to="/reviews" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Reviews</Link> */}
 
-          <a href="#contact" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Contact</a>
+          <a href="https://durbhasigurukulam.com/contact" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Contact</a>
           {/* <Link to="/login">
             <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 text-sm font-medium">Login</button>
           </Link>
