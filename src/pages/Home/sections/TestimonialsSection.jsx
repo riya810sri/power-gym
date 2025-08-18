@@ -1,20 +1,50 @@
-import testimonials from '../../../data/testimonials.json';
-
-
+import { motion } from "framer-motion";
+import testimonials from "../../../data/testimonials.json";
 
 export function TestimonialsSection() {
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2, // delay between cards
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  };
+
   return (
-    <section id="reviews" className="py-20 px-4 bg-gradient-to-b from-black to-gray-900">
+    <section
+      id="reviews"
+      className="py-20 px-4 bg-gradient-to-b from-black to-gray-900"
+    >
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">Success Stories from Our Learners</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+          Success Stories from Our Learners
+        </h2>
         <p className="text-lg text-gray-400 max-w-2xl mx-auto">
           See How Durbhasi Gurukulam is Shaping the Future of Cybersecurity Career
         </p>
       </div>
-      
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto"
+      >
         {testimonials.map((review) => (
-          <div key={review.id} className="feature-card bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-purple-500 group hover:transform hover:scale-105 transition-all duration-300">
+          <motion.div
+            key={review.id}
+            variants={cardVariants}
+            className="feature-card bg-gray-900/50 p-8 rounded-2xl border border-gray-800 hover:border-purple-500 group hover:transform hover:scale-105 transition-all duration-300"
+          >
             <div className="flex items-center mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold mr-4 text-lg">
                 {review.name?.charAt(0) || "U"}
@@ -27,9 +57,9 @@ export function TestimonialsSection() {
             <blockquote className="text-gray-300 leading-relaxed mb-6 text-lg">
               "{review.comment}"
             </blockquote>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
