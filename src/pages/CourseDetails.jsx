@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { courseHandler } from '../handlers';
 import { getImageUrl, handleImageError, handleImageLoad, fetchImageWithCORS } from '../fun';
-import { Footer } from '../components/layout/Footer';
 import { Link } from 'react-router-dom';
 
 export default function CourseDetails() {
@@ -13,7 +12,27 @@ export default function CourseDetails() {
   const [imageUrl, setImageUrl] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
 
+  // Memoize authentication check
   useEffect(() => {
+    let isMounted = true;
+    
+    // Check if user is logged in by checking for token in localStorage
+    const token = localStorage.getItem('token');
+    console.log('CourseDetails - Checking authentication state:', token ? 'Authenticated' : 'Not authenticated');
+    
+    if (isMounted) {
+      setIsAuthenticated(!!token);
+    }
+    
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Memoize course fetching
+  useEffect(() => {
+    let isMounted = true;
+    
     async function fetchCourse() {
       try {
         console.log('Fetching course details for ID/Path:', id);
@@ -31,36 +50,45 @@ export default function CourseDetails() {
         }
         
         const courseData = response?.data || response;
-        setCourse(courseData);
-        console.log('Fetched course details:', courseData);
         
-        // Handle image loading with CORS
-        if (courseData?.image) {
-          setImageLoading(true);
-          try {
-            const corsImageUrl = await fetchImageWithCORS(getImageUrl(courseData.image));
-            setImageUrl(corsImageUrl);
-          } catch (err) {
-            console.log('Failed to load image with CORS, using direct URL:', err);
-            setImageUrl(getImageUrl(courseData.image));
-          } finally {
-            setImageLoading(false);
+        if (isMounted) {
+          setCourse(courseData);
+          console.log('Fetched course details:', courseData);
+          
+          // Handle image loading with CORS
+          if (courseData?.image) {
+            setImageLoading(true);
+            try {
+              const corsImageUrl = await fetchImageWithCORS(getImageUrl(courseData.image));
+              if (isMounted) {
+                setImageUrl(corsImageUrl);
+              }
+            } catch (err) {
+              console.log('Failed to load image with CORS, using direct URL:', err);
+              if (isMounted) {
+                setImageUrl(getImageUrl(courseData.image));
+              }
+            } finally {
+              if (isMounted) {
+                setImageLoading(false);
+              }
+            }
           }
         }
       } catch (err) {
-        setError('Failed to load course details');
-        console.log('Course details fetch error:', err);
+        if (isMounted) {
+          setError('Failed to load course details');
+          console.log('Course details fetch error:', err);
+        }
       }
     }
+    
     fetchCourse();
+    
+    return () => {
+      isMounted = false;
+    };
   }, [id]);
-
-  useEffect(() => {
-    // Check if user is logged in by checking for token in localStorage
-    const token = localStorage.getItem('token');
-    console.log('CourseDetails - Checking authentication state:', token ? 'Authenticated' : 'Not authenticated');
-    setIsAuthenticated(!!token);
-  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -91,19 +119,50 @@ export default function CourseDetails() {
     }
   };
 
+  // Memoize rendered requirements
+  const renderedRequirements = useMemo(() => {
+    if (!course?.requirements) return null;
+    
+    return (
+      <div data-aos="fade-up" data-aos-delay="300" className="mt-4">
+        <h3 className="text-lg font-semibold text-white mb-2">Requirements:</h3>
+        <ul className="list-disc list-inside text-gray-300">
+          {course.requirements.map((req, idx) => (
+            <li key={idx} data-aos="fade-up" data-aos-delay={400 + idx * 50}>{req}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }, [course?.requirements]);
+
+  // Memoize rendered learning outcomes
+  const renderedLearningOutcomes = useMemo(() => {
+    if (!course?.whatYouWillLearn) return null;
+    
+    return (
+      <div data-aos="fade-up" data-aos-delay="500" className="mt-4">
+        <h3 className="text-lg font-semibold text-white mb-2">What You Will Learn:</h3>
+        <ul className="list-disc list-inside text-gray-300">
+          {course.whatYouWillLearn.map((item, idx) => (
+            <li key={idx} data-aos="fade-up" data-aos-delay={600 + idx * 50}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }, [course?.whatYouWillLearn]);
+
   if (error) return <div className="text-red-500 text-center py-8">{error}</div>;
   if (!course) return <div className="text-gray-400 text-center py-8">Loading...</div>;
 
   return (
     <div className="min-h-screen bg-black text-white px-4 pb-8">
-      <nav className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80">
+      <nav data-aos="fade-down" className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80">
         <div className="flex items-center space-x-2">
           <span className="text-xl font-bold text-white">Durbhasi Gurukulam</span>
         </div>
         <div className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Home</Link>
-          <Link to="/courses" className="text-purple-400 hover:text-white transition-colors text-sm font-medium">Courses</Link>
-          
+          <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium" data-aos="fade-down" data-aos-delay="100">Home</Link>
+          <Link to="/courses" className="text-purple-400 hover:text-white transition-colors text-sm font-medium" data-aos="fade-down" data-aos-delay="200">Courses</Link>
           
           {/* Conditional rendering based on authentication state */}
           {isAuthenticated && (
@@ -133,7 +192,7 @@ export default function CourseDetails() {
         </div>
       </nav>
       <div className="pt-20"></div>
-      <div className="max-w-3xl mx-auto bg-zinc-900 rounded-xl shadow-2xl p-8 border border-purple-600 mt-8">
+      <div data-aos="fade-up" className="max-w-3xl mx-auto bg-zinc-900 rounded-xl shadow-2xl p-8 border border-purple-600 mt-8">
         {imageLoading ? (
           <div className="w-full h-56 bg-zinc-800 rounded-lg mb-6 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
@@ -145,18 +204,20 @@ export default function CourseDetails() {
             className="w-full h-56 object-cover rounded-lg mb-6"
             onError={(e) => handleImageError(e)}
             onLoad={() => handleImageLoad(imageUrl || course.image)}
+            data-aos="zoom-in"
+            loading="lazy"
           />
         )}
-        <h2 className="text-3xl font-bold mb-2 text-purple-400">{course.title}</h2>
-        <p className="text-gray-300 mb-4 text-lg">{course.description}</p>
-        <div className="mb-2 text-sm text-gray-400">Instructor: {course.instructor}</div>
-        <div className="mb-2 text-sm text-gray-400">Level: {course.level}</div>
-        <div className="mb-2 text-sm text-gray-400">Duration: {course.duration}</div>
-        <div className="mb-2 text-sm text-gray-400">Category: {course.category}</div>
-        <div className="mb-2 text-sm text-gray-400">Price: <span className="text-purple-400 font-bold">₹{course.price}</span></div>
+        <h2 data-aos="fade-right" className="text-3xl font-bold mb-2 text-purple-400">{course.title}</h2>
+        <p data-aos="fade-left" className="text-gray-300 mb-4 text-lg">{course.description}</p>
+        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Instructor: {course.instructor}</div>
+        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Level: {course.level}</div>
+        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Duration: {course.duration}</div>
+        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Category: {course.category}</div>
+        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Price: <span className="text-purple-400 font-bold">₹{course.price}</span></div>
         
         {/* Action Buttons */}
-        <div className="mt-6 flex flex-col sm:flex-row gap-4">
+        <div data-aos="fade-up" data-aos-delay="200" className="mt-6 flex flex-col sm:flex-row gap-4">
           <button 
             onClick={handleSyllabusDownload}
             className="flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-medium"
@@ -176,28 +237,10 @@ export default function CourseDetails() {
             Enroll Now
           </button>
         </div>
-        {course.requirements && (
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold text-white mb-2">Requirements:</h3>
-            <ul className="list-disc list-inside text-gray-300">
-              {course.requirements.map((req, idx) => (
-                <li key={idx}>{req}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {course.whatYouWillLearn && (
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold text-white mb-2">What You Will Learn:</h3>
-            <ul className="list-disc list-inside text-gray-300">
-              {course.whatYouWillLearn.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        )}
+        
+        {renderedRequirements}
+        {renderedLearningOutcomes}
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Footer } from '../components/layout/Footer';
+import { Star, CheckCircle, User } from 'lucide-react';
 
 const initialReviews = [
 	{
@@ -96,8 +95,6 @@ export default function Review() {
 						</svg>
 					</button>
 				</div>
-			</motion.nav>
-
 			{/* Content below navbar */}
 			<div className="pt-24 max-w-3xl mx-auto">
 				<motion.h2
@@ -210,7 +207,6 @@ export default function Review() {
 				transition={{ duration: 0.8 }}
 				viewport={{ once: true }}
 			>
-				<Footer />
 			</motion.div>
 		</div>
 	);
