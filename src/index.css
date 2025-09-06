@@ -268,6 +268,27 @@ p {
   }
 }
 
+/* Gradient animation */
+@keyframes gradient-x {
+  0%, 100% {
+    background-size: 200% 200%;
+    background-position: left center;
+  }
+  50% {
+    background-size: 200% 200%;
+    background-position: right center;
+  }
+}
+
+@keyframes gradient-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
@@ -308,6 +329,16 @@ p {
 
 .fade-in {
   animation: fade-in 0.8s ease-out forwards;
+}
+
+/* Gradient animations */
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+.animate-gradient-rotate {
+  animation: gradient-rotate 2s linear infinite;
 }
 
 /* AOS Custom Animation Extensions */

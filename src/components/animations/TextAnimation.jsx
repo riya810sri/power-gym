@@ -88,4 +88,6 @@ export const AnimatedLetters = ({
   );
 };
 
-export default { AnimatedText, AnimatedLetters };
+const TextAnimation = { AnimatedText, AnimatedLetters };
+
+export default TextAnimation;

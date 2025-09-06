@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { apihandler } from '../fun';
 import { Link } from 'react-router-dom';
-import { Footer } from '../components/layout/Footer';
-<<<<<<< HEAD
+import { motion } from 'framer-motion';
+import { courseHandler } from '../handlers';
+import { getImageUrl, handleImageError } from '../fun';
 
-// CourseCard component with CORS image loading
+// CourseCard component
 const CourseCard = React.memo(({ course, index }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
@@ -16,17 +16,15 @@ const CourseCard = React.memo(({ course, index }) => {
       if (course?.image) {
         setImageLoading(true);
         try {
-          const corsImageUrl = await fetchImageWithCORS(getImageUrl(course.image));
+          const url = getImageUrl(course.image);
           if (isMounted) {
-            setImageUrl(corsImageUrl);
+            setImageUrl(url);
+            setImageLoading(false);
           }
         } catch (err) {
-          console.log('Failed to load image with CORS, using direct URL:', err);
+          console.log('Failed to load image:', err);
           if (isMounted) {
-            setImageUrl(getImageUrl(course.image));
-          }
-        } finally {
-          if (isMounted) {
+            setImageUrl('https://via.placeholder.com/400x300');
             setImageLoading(false);
           }
         }
@@ -45,11 +43,13 @@ const CourseCard = React.memo(({ course, index }) => {
   }, [course.image]);
 
   return (
-    <div
+    <motion.div
       key={course._id}
-      data-aos="fade-up"
-      data-aos-delay={index * 50}
       className="bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-700 flex flex-col transition-all duration-500 hover:border-purple-500 hover:transform hover:scale-105"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      viewport={{ once: true }}
     >
       {imageLoading ? (
         <div className="w-full h-40 bg-zinc-800 rounded-lg mb-4 flex items-center justify-center">
@@ -57,73 +57,31 @@ const CourseCard = React.memo(({ course, index }) => {
         </div>
       ) : (
         <img
-          src={imageUrl || getImageUrl(course.image)}
+          src={imageUrl}
           alt={course.title}
           className="w-full h-40 object-cover rounded-lg mb-4 transition-opacity duration-500"
-          onError={(e) => handleImageError(e)}
-          onLoad={() => handleImageLoad(imageUrl || course.image)}
-          data-aos="zoom-in"
-          data-aos-delay={index * 50 + 100}
-          loading="lazy"
+          onError={(e) => handleImageError(e, 'https://via.placeholder.com/400x300')}
         />
       )}
-      <h3 
-        data-aos="fade-right" 
-        data-aos-delay={index * 50 + 200}
-        className="text-xl font-semibold mb-2"
-      >
-        {course.title}
-      </h3>
-      <p 
-        data-aos="fade-left" 
-        data-aos-delay={index * 50 + 300}
-        className="text-gray-400 mb-2 text-sm line-clamp-3"
-      >
-        {course.shortDescription || course.description}
-      </p>
+      <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
+      <p className="text-gray-400 mb-2 line-clamp-3">{course.shortDescription || course.description}</p>
       
-      {/* Course meta information */}
       <div className="flex flex-col gap-2 mb-4">
-        <div 
-          data-aos="fade-up" 
-          data-aos-delay={index * 50 + 400}
-          className="flex items-center justify-between text-sm"
-        >
+        <div className="flex items-center justify-between text-sm">
           <span className="text-gray-500">Duration:</span>
-          <span className="text-gray-300">{course.duration}</span>
+          <span className="text-gray-300">{course.duration || 'Self-paced'}</span>
         </div>
-        <div 
-          data-aos="fade-up" 
-          data-aos-delay={index * 50 + 500}
-          className="flex items-center justify-between text-sm"
-        >
-          <span className="text-gray-500">Category:</span>
-          <span className="text-purple-400">{course.category}</span>
-        </div>
-        <div 
-          data-aos="fade-up" 
-          data-aos-delay={index * 50 + 600}
-          className="flex items-center justify-between text-sm"
-        >
+        <div className="flex items-center justify-between text-sm">
           <span className="text-gray-500">Level:</span>
           <span className="bg-purple-600 text-white px-2 py-1 rounded text-xs">{course.level}</span>
         </div>
-        <div 
-          data-aos="fade-up" 
-          data-aos-delay={index * 50 + 700}
-          className="flex items-center justify-between text-sm"
-        >
+        <div className="flex items-center justify-between text-sm">
           <span className="text-gray-500">Instructor:</span>
           <span className="text-gray-300">{course.instructor}</span>
         </div>
       </div>
-
-      {/* Price */}
-      <div 
-        data-aos="fade-up" 
-        data-aos-delay={index * 50 + 800}
-        className="flex items-center justify-between mb-4"
-      >
+      
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           {course.originalPrice && course.originalPrice !== course.price && (
             <span className="text-gray-500 text-sm line-through">₹{course.originalPrice}</span>
@@ -132,84 +90,16 @@ const CourseCard = React.memo(({ course, index }) => {
         </div>
       </div>
 
-      {/* Action buttons */}
-      <div className="mt-auto space-y-2">
-        <Link 
-          to={`/courses/${course.path || course._id}`}
-          data-aos="zoom-in" 
-          data-aos-delay={index * 50 + 900}
-          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors text-center block"
-        >
+      <Link to={`/courses/${course.path || course._id}`}>
+        <button className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg font-semibold transition-colors">
           View Details
-        </Link>
-      </div>
-    </div>
+        </button>
+      </Link>
+    </motion.div>
   );
 });
-=======
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 
-function CoursesNavbar() {
-  return (
-    <motion.nav
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80"
-    >
-      <div className="flex items-center space-x-2">
-        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-          <span className="text-white font-bold text-sm">V</span>
-        </div>
-        <span className="text-xl font-bold text-white">Vulnhut</span>
-      </div>
-      <div className="hidden md:flex items-center space-x-8">
-        <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Home</Link>
-        <Link to="/courses" className="text-purple-400 hover:text-white transition-colors text-sm font-medium">Courses</Link>
-        <Link to="/login">
-          <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-100 text-sm font-medium">Login</button>
-        </Link>
-        <Link to="/signup">
-          <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium ml-2">Sign Up</button>
-        </Link>
-      </div>
-      <div className="md:hidden">
-        <button className="text-white">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
-    </motion.nav>
-  );
-}
-
-const sampleCourses = [
-  {
-    _id: '1',
-    title: 'Web Application Security',
-    description: 'Learn how to secure web applications from common vulnerabilities',
-    shortDescription: 'Comprehensive web security course',
-    image: 'https://via.placeholder.com/400x300',
-    price: '4999',
-    level: 'Intermediate',
-    instructor: 'John Doe'
-  },
-  {
-    _id: '2',
-    title: 'Network Penetration Testing',
-    description: 'Master the art of network security testing',
-    shortDescription: 'Professional pentesting course',
-    image: 'https://via.placeholder.com/400x300',
-    price: '5999',
-    level: 'Advanced',
-    instructor: 'Jane Smith'
-  },
-];
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
-
-export default function Courses() {
+function Courses() {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [search, setSearch] = useState('');
@@ -227,7 +117,8 @@ export default function Courses() {
       image: 'https://via.placeholder.com/400x300',
       price: '4999',
       level: 'Intermediate',
-      instructor: 'John Doe'
+      instructor: 'John Doe',
+      duration: '8 weeks'
     },
     {
       _id: '2',
@@ -238,14 +129,10 @@ export default function Courses() {
       image: 'https://via.placeholder.com/400x300',
       price: '5999',
       level: 'Advanced',
-      instructor: 'Jane Smith'
+      instructor: 'Jane Smith',
+      duration: '10 weeks'
     },
   ], []);
-
-  // Debounce search input to reduce filtering frequency
-  const debouncedSearch = React.useMemo(() => {
-    return search;
-  }, [search]);
 
   useEffect(() => {
     let isMounted = true;
@@ -253,28 +140,25 @@ export default function Courses() {
     async function fetchCourses() {
       try {
         setLoading(true);
-<<<<<<< HEAD
         console.log('Fetching courses...');
-        const response = await courseHandler.getAll({ page: 1 });
-        console.log('Fetched courses data:', response);
+        const response = await courseHandler.getAll();
+        console.log('Courses response:', response);
         
         // Extract courses from response.data since API returns { data: [...], pagination: {...}, success: true }
-        const courseData = response?.data || [];
+        const courseData = response?.data || response?.courses || [];
         console.log('Extracted courses:', courseData);
         
         if (isMounted) {
-          setCourses(courseData);
-          setFilteredCourses(courseData);
-          setError('');
+          if (courseData.length > 0) {
+            setCourses(courseData);
+            setFilteredCourses(courseData);
+            setError('');
+          } else {
+            setCourses(sampleCourses);
+            setFilteredCourses(sampleCourses);
+            setError('Failed to load live data. Showing sample data.');
+          }
         }
-=======
-        const response = await apihandler({ url: 'http://localhost:5000/api/courses', method: 'GET' });
-        await new Promise(resolve => setTimeout(resolve, 500));
-        const courseData = response?.courses || sampleCourses;
-        setCourses(courseData);
-        setFilteredCourses(courseData);
-        if (!response?.courses) setError('Failed to load live data. Showing sample data.');
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
       } catch (err) {
         console.error('Course fetch error:', err);
         if (isMounted) {
@@ -296,21 +180,14 @@ export default function Courses() {
     };
   }, [sampleCourses]);
 
-  // Optimize filtering with useMemo
+  // Optimize filtering with useEffect
   useEffect(() => {
     const results = courses.filter(course =>
-      course.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
-      course.description.toLowerCase().includes(debouncedSearch.toLowerCase())
+      course.title.toLowerCase().includes(search.toLowerCase()) ||
+      (course.description && course.description.toLowerCase().includes(search.toLowerCase()))
     );
     setFilteredCourses(results);
-  }, [debouncedSearch, courses]);
-
-  // Memoize the rendered course cards
-  const renderedCourses = React.useMemo(() => {
-    return filteredCourses.map((course, index) => (
-      <CourseCard key={course._id} course={course} index={index} />
-    ));
-  }, [filteredCourses]);
+  }, [search, courses]);
 
   if (loading) {
     return (
@@ -323,11 +200,6 @@ export default function Courses() {
   return (
     <div className="min-h-screen bg-black text-white px-4 pb-8">
       <div className="pt-28 max-w-7xl mx-auto">
-<<<<<<< HEAD
-        <div className="flex justify-between items-center mb-6">
-          <h2 data-aos="fade-right" className="text-3xl font-bold">Available Courses</h2>
-        </div>
-=======
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -337,14 +209,12 @@ export default function Courses() {
         >
           <h2 className="text-3xl font-bold">Available Courses</h2>
         </motion.div>
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
 
         <motion.input
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Search courses..."
-          data-aos="fade-up"
           className="w-full mb-6 px-4 py-2 bg-zinc-800 border border-zinc-700 rounded text-white placeholder-gray-400"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -355,57 +225,13 @@ export default function Courses() {
         {error && <p className="text-yellow-400 text-center mb-4">{error}</p>}
 
         <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-<<<<<<< HEAD
-          {renderedCourses}
-        </div>
-      </div>
-=======
           {filteredCourses.map((course, index) => (
-            <motion.div
-              key={course._id}
-              className="bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-700 flex flex-col transition-all duration-500 hover:border-purple-500"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <img
-                src={course.image || 'https://via.placeholder.com/400x300'}
-                alt={course.title}
-                className="w-full h-40 object-cover rounded-lg mb-4 transition-opacity duration-500"
-                onError={(e) => {
-                  if (e.target.src !== 'https://via.placeholder.com/400x300') {
-                    e.target.src = 'https://via.placeholder.com/400x300';
-                  }
-                }}
-              />
-              <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
-              <p className="text-gray-400 mb-2">{course.shortDescription || course.description}</p>
-              <div className="flex items-center justify-between mt-auto">
-                <span className="text-purple-400 font-bold text-lg">₹{course.price}</span>
-                <span className="bg-purple-600 text-white px-3 py-1 rounded text-xs">{course.level}</span>
-              </div>
-              <div className="mt-2 text-sm text-gray-500">{course.instructor}</div>
-              <Link to={`/courses/${course._id}`}>
-                <button className="mt-4 w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded font-semibold transition">
-                  Learn More
-                </button>
-              </Link>
-            </motion.div>
+            <CourseCard key={course._id} course={course} index={index} />
           ))}
         </div>
       </div>
-
-      {/* Animated Footer */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-      >
-        <Footer />
-      </motion.div>
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
     </div>
   );
 }
+
+export default Courses;

@@ -2,15 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { courseHandler } from '../handlers';
-import { getImageUrl, handleImageError, handleImageLoad, fetchImageWithCORS } from '../fun';
-import { AnimatedText } from '../components/animations/TextAnimation';
+import { getImageUrl, handleImageError, fetchImageWithCORS } from '../fun';
 
 export default function Learn() {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
 
@@ -66,22 +64,6 @@ export default function Learn() {
     }
     fetchCourse();
   }, [id]);
-
-  useEffect(() => {
-    // Check if user is logged in by checking for token in localStorage
-    const token = localStorage.getItem('token');
-    console.log('LearnPage - Checking authentication state:', token ? 'Authenticated' : 'Not authenticated');
-    setIsAuthenticated(!!token);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('isAdmin');
-    console.log('User logged out from LearnPage');
-    setIsAuthenticated(false);
-    // Optionally redirect to home page
-    window.location.href = '/';
-  };
 
   const handleSyllabusDownload = () => {
     if (course?.syllabusDownloadLink) {
@@ -159,7 +141,6 @@ export default function Learn() {
                   alt={course.title}
                   className="w-full h-64 object-cover rounded-lg mb-6"
                   onError={(e) => handleImageError(e)}
-                  onLoad={() => handleImageLoad(imageUrl || course.image)}
                 />
               )}
               

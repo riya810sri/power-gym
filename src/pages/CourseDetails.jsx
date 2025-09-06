@@ -1,19 +1,11 @@
-<<<<<<< HEAD
 import React, { useEffect, useState, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { courseHandler } from '../handlers';
-import { getImageUrl, handleImageError, handleImageLoad, fetchImageWithCORS } from '../fun';
-import { Link } from 'react-router-dom';
-=======
-import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { courseHandler } from '../handlers';
 import { getImageUrl, handleImageError, handleImageLoad, fetchImageWithCORS } from '../fun';
 import { Footer } from '../components/layout/Footer';
 import { motion } from 'framer-motion';
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
 
-export default function CourseDetails() {
+function CourseDetails() {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
   const [error, setError] = useState('');
@@ -50,7 +42,6 @@ export default function CourseDetails() {
           : await courseHandler.getById(id);
 
         const courseData = response?.data || response;
-<<<<<<< HEAD
         
         if (isMounted) {
           setCourse(courseData);
@@ -81,23 +72,6 @@ export default function CourseDetails() {
           setError('Failed to load course details');
           console.log('Course details fetch error:', err);
         }
-=======
-        setCourse(courseData);
-
-        if (courseData?.image) {
-          setImageLoading(true);
-          try {
-            const corsImageUrl = await fetchImageWithCORS(getImageUrl(courseData.image));
-            setImageUrl(corsImageUrl);
-          } catch {
-            setImageUrl(getImageUrl(courseData.image));
-          } finally {
-            setImageLoading(false);
-          }
-        }
-      } catch {
-        setError('Failed to load course details');
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
       }
     }
     
@@ -108,14 +82,7 @@ export default function CourseDetails() {
     };
   }, [id]);
 
-<<<<<<< HEAD
-=======
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token);
-  }, []);
 
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('isAdmin');
@@ -176,25 +143,33 @@ export default function CourseDetails() {
 
   return (
     <div className="min-h-screen bg-black text-white px-4 pb-8">
-<<<<<<< HEAD
-      <nav data-aos="fade-down" className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80">
-=======
       {/* Navbar */}
-      <nav className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80">
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
+      <motion.nav
+        initial={{ y: -50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="navbar fixed top-0 left-0 right-0 z-50 py-4 px-6 flex justify-between items-center backdrop-blur-md bg-black/80"
+      >
         <div className="flex items-center space-x-2">
           <span className="text-xl font-bold text-white">Durbhasi Gurukulam</span>
         </div>
         <div className="hidden md:flex items-center space-x-8">
-<<<<<<< HEAD
-          <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium" data-aos="fade-down" data-aos-delay="100">Home</Link>
-          <Link to="/courses" className="text-purple-400 hover:text-white transition-colors text-sm font-medium" data-aos="fade-down" data-aos-delay="200">Courses</Link>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Home</Link>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <Link to="/courses" className="text-purple-400 hover:text-white transition-colors text-sm font-medium">Courses</Link>
+          </motion.div>
           
           {/* Conditional rendering based on authentication state */}
-=======
-          <Link to="/" className="text-gray-300 hover:text-white transition-colors text-sm font-medium">Home</Link>
-          <Link to="/courses" className="text-purple-400 hover:text-white transition-colors text-sm font-medium">Courses</Link>
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
           {isAuthenticated && (
             <div className="relative group">
               <button className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 text-sm font-medium flex items-center space-x-2">
@@ -213,12 +188,9 @@ export default function CourseDetails() {
             </div>
           )}
         </div>
-      </nav>
+      </motion.nav>
 
       <div className="pt-20"></div>
-<<<<<<< HEAD
-      <div data-aos="fade-up" className="max-w-3xl mx-auto bg-zinc-900 rounded-xl shadow-2xl p-8 border border-purple-600 mt-8">
-=======
 
       {/* Course Card */}
       <motion.div
@@ -228,7 +200,6 @@ export default function CourseDetails() {
         transition={{ duration: 0.6 }}
         viewport={{ once: false, amount: 0.3 }}
       >
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
         {imageLoading ? (
           <div className="w-full h-56 bg-zinc-800 rounded-lg mb-6 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
@@ -240,26 +211,11 @@ export default function CourseDetails() {
             className="w-full h-56 object-cover rounded-lg mb-6"
             onError={(e) => handleImageError(e)}
             onLoad={() => handleImageLoad(imageUrl || course.image)}
-<<<<<<< HEAD
-            data-aos="zoom-in"
-            loading="lazy"
-          />
-        )}
-        <h2 data-aos="fade-right" className="text-3xl font-bold mb-2 text-purple-400">{course.title}</h2>
-        <p data-aos="fade-left" className="text-gray-300 mb-4 text-lg">{course.description}</p>
-        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Instructor: {course.instructor}</div>
-        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Level: {course.level}</div>
-        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Duration: {course.duration}</div>
-        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Category: {course.category}</div>
-        <div data-aos="fade-up" className="mb-2 text-sm text-gray-400">Price: <span className="text-purple-400 font-bold">₹{course.price}</span></div>
-        
-        {/* Action Buttons */}
-        <div data-aos="fade-up" data-aos-delay="200" className="mt-6 flex flex-col sm:flex-row gap-4">
-=======
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: false }}
+            loading="lazy"
           />
         )}
 
@@ -284,11 +240,18 @@ export default function CourseDetails() {
         </motion.p>
 
         {/* Details */}
-        <div className="mb-2 text-sm text-gray-400">Instructor: {course.instructor}</div>
-        <div className="mb-2 text-sm text-gray-400">Level: {course.level}</div>
-        <div className="mb-2 text-sm text-gray-400">Duration: {course.duration}</div>
-        <div className="mb-2 text-sm text-gray-400">Category: {course.category}</div>
-        <div className="mb-2 text-sm text-gray-400">Price: <span className="text-purple-400 font-bold">₹{course.price}</span></div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: false }}
+        >
+          <div className="mb-2 text-sm text-gray-400">Instructor: {course.instructor}</div>
+          <div className="mb-2 text-sm text-gray-400">Level: {course.level}</div>
+          <div className="mb-2 text-sm text-gray-400">Duration: {course.duration}</div>
+          <div className="mb-2 text-sm text-gray-400">Category: {course.category}</div>
+          <div className="mb-2 text-sm text-gray-400">Price: <span className="text-purple-400 font-bold">₹{course.price}</span></div>
+        </motion.div>
 
         {/* Action Buttons */}
         <motion.div 
@@ -298,7 +261,6 @@ export default function CourseDetails() {
           transition={{ duration: 0.6 }}
           viewport={{ once: false }}
         >
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
           <button 
             onClick={handleSyllabusDownload}
             className="flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 font-medium"
@@ -311,13 +273,6 @@ export default function CourseDetails() {
           >
             Enroll Now
           </button>
-<<<<<<< HEAD
-        </div>
-        
-        {renderedRequirements}
-        {renderedLearningOutcomes}
-      </div>
-=======
         </motion.div>
 
         {/* Requirements */}
@@ -357,8 +312,17 @@ export default function CourseDetails() {
         )}
       </motion.div>
 
-      <Footer />
->>>>>>> dd3061f92f065c1ad29ff9c11a80d7136b8110d1
+      {/* Animated Footer */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <Footer />
+      </motion.div>
     </div>
   );
 }
+
+export default CourseDetails;
