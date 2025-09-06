@@ -1,5 +1,5 @@
 import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import features from "../../../data/features.json";
 import SparkleAnimation from '../../../components/ui/SparkleAnimation';
 
