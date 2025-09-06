@@ -6,8 +6,15 @@ import SparkleAnimation from '../../../components/ui/SparkleAnimation';
 // Animated icon component
 const AnimatedIcon = ({ icon, index }) => {
   const controls = useAnimation();
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    
     const sequence = async () => {
       await controls.start({ 
         scale: [1, 1.2, 1],
@@ -18,7 +25,15 @@ const AnimatedIcon = ({ icon, index }) => {
     };
     
     sequence();
-  }, [controls, index]);
+  }, [controls, index, isMounted]);
+
+  if (!isMounted) {
+    return (
+      <div className="mb-6 text-4xl">
+        {icon || "🔒"}
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -40,20 +55,18 @@ const AnimatedProgressBar = ({ delay }) => {
     <motion.div
       className="h-1 bg-gray-700 rounded-full overflow-hidden mt-4"
       initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
       transition={{ delay: delay + 0.5 }}
-      viewport={{ once: true }}
     >
       <motion.div
         className="h-full bg-gradient-to-r from-purple-500 to-pink-500"
         initial={{ width: 0 }}
-        whileInView={{ width: "100%" }}
+        animate={{ width: "100%" }}
         transition={{ 
           duration: 1.5,
           delay: delay + 0.7,
           ease: "easeOut"
         }}
-        viewport={{ once: true }}
       />
     </motion.div>
   );
@@ -80,8 +93,7 @@ export function FeaturesSection() {
       id="features"
       className="section-dark py-20 px-4 max-w-7xl mx-auto relative"
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false, amount: 0.3 }}
+      animate="visible"
       variants={containerVariants}
     >
       {/* Sparkle Animation Background */}
@@ -91,9 +103,8 @@ export function FeaturesSection() {
         <motion.h2 
           className="text-4xl md:text-5xl font-bold mb-4 text-white"
           initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
         >
           Why Choose Durbhasi Gurukulam?
         </motion.h2>
@@ -101,9 +112,8 @@ export function FeaturesSection() {
         <motion.p 
           className="text-lg text-gray-400 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
         >
           Explore why we are the top choice in cybersecurity training.
         </motion.p>
@@ -131,9 +141,8 @@ export function FeaturesSection() {
             <motion.div
               className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-purple-500/20 to-transparent rounded-bl-full"
               initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
+              animate={{ scale: 1 }}
               transition={{ delay: index * 0.1 + 0.3, type: "spring" }}
-              viewport={{ once: true }}
             />
             
             {/* Animated icon */}
@@ -142,9 +151,8 @@ export function FeaturesSection() {
             <motion.h3 
               className="text-xl font-bold mb-4 text-white group-hover:text-purple-400 transition-colors"
               initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 + 0.2 }}
-              viewport={{ once: true }}
             >
               {item.title}
             </motion.h3>
@@ -152,9 +160,8 @@ export function FeaturesSection() {
             <motion.p 
               className="text-gray-400 leading-relaxed"
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 + 0.4 }}
-              viewport={{ once: true }}
             >
               {item.description}
             </motion.p>

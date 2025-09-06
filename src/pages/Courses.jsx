@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { courseHandler } from '../handlers';
 import { getImageUrl, handleImageError } from '../fun';
 
@@ -8,6 +8,12 @@ import { getImageUrl, handleImageError } from '../fun';
 const CourseCard = React.memo(({ course, index }) => {
   const [imageUrl, setImageUrl] = useState('');
   const [imageLoading, setImageLoading] = useState(true);
+  const controls = useAnimation();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -42,14 +48,16 @@ const CourseCard = React.memo(({ course, index }) => {
     };
   }, [course.image]);
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <motion.div
-      key={course._id}
       className="bg-zinc-900 rounded-xl shadow-lg p-6 border border-zinc-700 flex flex-col transition-all duration-500 hover:border-purple-500 hover:transform hover:scale-105"
       initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
     >
       {imageLoading ? (
         <div className="w-full h-40 bg-zinc-800 rounded-lg mb-4 flex items-center justify-center">
@@ -105,6 +113,12 @@ function Courses() {
   const [search, setSearch] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const controls = useAnimation();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Memoize sample courses to prevent recreation on each render
   const sampleCourses = React.useMemo(() => [
@@ -197,14 +211,17 @@ function Courses() {
     );
   }
 
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-black text-white px-4 pb-8">
       <div className="pt-28 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
           className="flex justify-between items-center mb-6"
         >
           <h2 className="text-3xl font-bold">Available Courses</h2>
@@ -217,9 +234,8 @@ function Courses() {
           placeholder="Search courses..."
           className="w-full mb-6 px-4 py-2 bg-zinc-800 border border-zinc-700 rounded text-white placeholder-gray-400"
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
         />
 
         {error && <p className="text-yellow-400 text-center mb-4">{error}</p>}

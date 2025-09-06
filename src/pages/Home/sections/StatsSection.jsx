@@ -27,18 +27,16 @@ const AnimatedCounter = ({ end, duration, label }) => {
       <motion.div
         className="text-5xl font-bold text-purple-400 mb-2"
         initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
       >
         {count}+
       </motion.div>
       <motion.div
         className="text-gray-300"
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        viewport={{ once: true }}
       >
         {label}
       </motion.div>
@@ -91,18 +89,16 @@ export function StatsSection() {
           <motion.h2 
             className="text-4xl md:text-5xl font-bold mb-4 text-white"
             initial={{ opacity: 0, y: -20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
           >
             Our Impact in Numbers
           </motion.h2>
           <motion.p 
             className="text-lg text-gray-400 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
           >
             Discover the measurable results of our cybersecurity training programs
           </motion.p>
@@ -113,9 +109,8 @@ export function StatsSection() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
               whileHover={{ 
                 scale: 1.05,
                 y: -10,

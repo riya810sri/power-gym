@@ -15,7 +15,7 @@
     "id": 3, 
     "title": "Industry-Recognized Certifications", 
     "description": "Gain certifications that are valued and recognized in the cybersecurity industry.",
-    "icon": "�"
+    "icon": "🏆"
   },
   { 
     "id": 4, 
@@ -33,6 +33,6 @@
     "id": 6, 
     "title": "Career Support", 
     "description": "Get guidance on career paths, job opportunities, and interview preparation in cybersecurity.",
-    "icon": "�"
+    "icon": "💼"
   }
 ]

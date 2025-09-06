@@ -5,6 +5,16 @@ import { useNavigate } from 'react-router-dom';
 
 // Floating particle component
 const FloatingParticle = ({ delay, duration, size, color }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  if (!isMounted) {
+    return null;
+  }
+  
   return (
     <motion.div
       className={`absolute rounded-full ${color}`}
@@ -30,6 +40,15 @@ const FloatingParticle = ({ delay, duration, size, color }) => {
 // Animated text component
 const AnimatedText = ({ text, className = "" }) => {
   const letters = Array.from(text);
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  if (!isMounted) {
+    return null;
+  }
   
   const container = {
     hidden: { opacity: 0 },
@@ -78,12 +97,26 @@ const AnimatedText = ({ text, className = "" }) => {
 
 // Rocket animation component
 const RocketAnimation = () => {
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
+      setIsMounted(true);
+    }
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <motion.div
       className="absolute top-1/4 right-10 w-16 h-16 z-20"
       initial={{ x: 100, y: 100, opacity: 0 }}
       animate={{ 
-        x: [-100, window.innerWidth - 200],
+        x: [-100, windowWidth - 200],
         y: [100, -200],
         opacity: [0, 1, 1, 0],
         rotate: [0, 360]
@@ -125,6 +158,16 @@ const RocketAnimation = () => {
 
 // Sparkle burst component
 const SparkleBurst = ({ delay = 0 }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  if (!isMounted) {
+    return null;
+  }
+  
   return (
     <motion.div
       className="absolute"
@@ -177,6 +220,16 @@ const SparkleBurst = ({ delay = 0 }) => {
 
 // Floating sparkle component
 const FloatingSparkle = ({ delay, size, top, left }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  
+  if (!isMounted) {
+    return null;
+  }
+  
   return (
     <motion.div
       className={`absolute ${size} opacity-70`}
@@ -196,13 +249,15 @@ const FloatingSparkle = ({ delay, size, top, left }) => {
     >
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
-              stroke="url(#sparkleGradient)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <defs>
-          <linearGradient id="sparkleGradient" x1="12" y1="2" x2="12" y2="21.02" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#E879F9" />
-            <stop offset="1" stopColor="#8B45C3" />
-          </linearGradient>
-        </defs>
+              stroke={typeof window !== 'undefined' ? "url(#sparkleGradient)" : "#E879F9"} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        {typeof window !== 'undefined' && (
+          <defs>
+            <linearGradient id="sparkleGradient" x1="12" y1="2" x2="12" y2="21.02" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#E879F9" />
+              <stop offset="1" stopColor="#8B45C3" />
+            </linearGradient>
+          </defs>
+        )}
       </svg>
     </motion.div>
   );
@@ -218,14 +273,22 @@ export function HeroSection() {
 
   // Animate the scroll indicator
   useEffect(() => {
-    controls.start({
-      y: [0, 10, 0],
-      transition: {
-        duration: 1.5,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }
-    });
+    let isMounted = true;
+    
+    if (isMounted) {
+      controls.start({
+        y: [0, 10, 0],
+        transition: {
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }
+      });
+    }
+    
+    return () => {
+      isMounted = false;
+    };
   }, [controls]);
 
   return (

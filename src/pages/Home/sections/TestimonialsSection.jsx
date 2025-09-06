@@ -7,9 +7,8 @@ const AnimatedQuoteIcon = () => {
     <motion.div
       className="text-5xl text-purple-500 opacity-20 absolute top-4 left-4"
       initial={{ rotate: -10, opacity: 0 }}
-      whileInView={{ rotate: 0, opacity: 0.2 }}
+      animate={{ rotate: 0, opacity: 0.2 }}
       transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
     >
       "
     </motion.div>
@@ -22,9 +21,8 @@ const AnimatedAvatar = ({ name }) => {
     <motion.div 
       className="w-16 h-16 rounded-full flex items-center justify-center text-white font-bold mr-4 text-lg relative"
       initial={{ scale: 0 }}
-      whileInView={{ scale: 1 }}
+      animate={{ scale: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      viewport={{ once: true }}
       whileHover={{ scale: 1.1 }}
     >
       {/* Animated border */}
@@ -77,18 +75,16 @@ export function TestimonialsSection() {
         <motion.h2 
           className="text-4xl md:text-5xl font-bold mb-4 text-white"
           initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
         >
           Success Stories from Our Learners
         </motion.h2>
         <motion.p 
           className="text-lg text-gray-400 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
         >
           See How Durbhasi Gurukulam is Shaping the Future of Cybersecurity Career
         </motion.p>
@@ -97,8 +93,7 @@ export function TestimonialsSection() {
       <motion.div
         variants={containerVariants}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
         className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto"
       >
         {testimonials.map((review, index) => (
@@ -126,18 +121,16 @@ export function TestimonialsSection() {
                 <motion.h4 
                   className="font-bold text-white text-lg"
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 + 0.2 }}
-                  viewport={{ once: true }}
                 >
                   {review.name}
                 </motion.h4>
                 <motion.p 
                   className="text-purple-400 text-sm font-medium"
                   initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 + 0.3 }}
-                  viewport={{ once: true }}
                 >
                   {review.role}
                 </motion.p>
@@ -147,9 +140,8 @@ export function TestimonialsSection() {
             <motion.blockquote 
               className="text-gray-300 leading-relaxed mb-6 text-lg relative z-10"
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
               transition={{ delay: index * 0.1 + 0.4 }}
-              viewport={{ once: true }}
             >
               "{review.comment}"
             </motion.blockquote>
@@ -158,18 +150,16 @@ export function TestimonialsSection() {
             <motion.div 
               className="flex space-x-1 relative z-10"
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.5 }}
-              viewport={{ once: true }}
             >
               {[...Array(5)].map((_, i) => (
                 <motion.span
                   key={i}
                   className="text-yellow-400"
                   initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
+                  animate={{ scale: 1 }}
                   transition={{ delay: index * 0.1 + 0.6 + i * 0.1 }}
-                  viewport={{ once: true }}
                   whileHover={{ 
                     scale: 1.2,
                     rotate: [0, -10, 10, 0],
