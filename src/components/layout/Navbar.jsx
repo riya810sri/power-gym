@@ -132,7 +132,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           {/* Logo with Enhanced Parallax Animation */}
           <motion.div 
-            className="flex-shrink-0"
+            className="flex-shrink-0 cursor-pointer"
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.95 }}
             onHoverStart={() => {}}
